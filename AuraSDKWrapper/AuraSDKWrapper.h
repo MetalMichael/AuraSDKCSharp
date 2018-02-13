@@ -53,6 +53,12 @@ namespace AuraSDKWrapper {
 		/// <param name="colors">colors to set</param>
 		void SetMBLedColor(int controllerId, array<System::Byte>^ colors);
 
+		/// <summary>
+		/// Gets motherboard controller's colors for all LEDs
+		/// </summary>
+		/// <param name="controllerId">id of the controller, 0-N</param>
+		array<System::Byte>^ GetMBLedColor(int controllerId);
+
 		/// <summary>  
 		/// Get motherboard controller's LEDs count (zones)
 		/// </summary> 

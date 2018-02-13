@@ -80,6 +80,17 @@ namespace AuraSDKWrapper {
 		SetMbColor(_mbLightCtrl[controllerId], p, colors->Length);
 	}
 
+	array<System::Byte>^ AuraSDK::GetMBLedColor(int controllerId) {
+		if (controllerId < 0 || controllerId >= _mbLedControllers)
+			return gcnew array<System::Byte>(0);
+		int size = GetMbColor(_mbLightCtrl[controllerId], NULL, 0);
+
+		array<System::Byte>^ colors = gcnew array<System::Byte>(size);
+		pin_ptr<byte> p = &colors[0];
+		GetMbColor(_mbLightCtrl[controllerId], p, size);
+		return colors;
+	}
+
 	int AuraSDK::GetMBLedCount(int controllerId) {
 		if (controllerId < 0 || controllerId >= _mbLedControllers)
 			return -1;
