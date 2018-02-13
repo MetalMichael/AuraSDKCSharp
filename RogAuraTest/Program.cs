@@ -21,13 +21,14 @@ namespace RogAuraTest
             {
                 Console.WriteLine("Please run as administrator.");
                 Console.WriteLine("Press any key to exit...");
-                while (!(Console.KeyAvailable));
-                    return;
+                while (!(Console.KeyAvailable)) ;
+                return;
             }
 
             AuraSDK auraSDK = new AuraSDK();
             int result = auraSDK.DetectAuraDevices();
-            if (result != 0) {
+            if (result != 0)
+            {
                 Console.WriteLine("Error during initialize: " + result);
                 return;
             }
@@ -44,28 +45,19 @@ namespace RogAuraTest
                 {
                     int ledCount = auraSDK.GetMBLedCount(0);
                     byte[] colors = new byte[ledCount * 3];
-                    colors[0] = 255;
-                    colors[3] = 255;
-                    colors[6] = 255;
-                    colors[9] = 255;
-                    colors[12] = 255;
-                    auraSDK.SetMBLedColor(0, colors);
-                    Thread.Sleep(100);
-                    colors[1] = 255;
-                    colors[4] = 255;
-                    colors[7] = 255;
-                    colors[10] = 255;
-                    colors[13] = 255;
-                    auraSDK.SetMBLedColor(0, colors);
-                    Thread.Sleep(100);
 
-                    colors[2] = 255;
-                    colors[5] = 255;
-                    colors[8] = 255;
-                    colors[11] = 255;
-                    colors[14] = 255;
-                    auraSDK.SetMBLedColor(0, colors);
-                    Thread.Sleep(100);
+                    for (var i = 0; i < 2 && i < ledCount; i++)
+                    {
+                        for (var j = i; j < ledCount; j += 3)
+                        {
+                            colors[i] = 255;
+                            auraSDK.SetMBLedColor(0, colors);
+                            Thread.Sleep(100);
+
+                            var current = auraSDK.GetMBLedColor(0);
+                            Console.WriteLine($"R:{current[0]} G:{current[1]} B:{current[2]}");
+                        }
+                    }
                 }
 
             }
